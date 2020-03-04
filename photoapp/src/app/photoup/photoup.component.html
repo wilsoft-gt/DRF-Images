@@ -1,0 +1,11 @@
+<section>
+    {{droped | json}}
+    <img src="{{droped}}" alt="">
+    <div class="dropArea" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event)">
+        <div class="dropArea__info">
+            <i class="fas fa-upload"></i>
+            <p>Drag and drop your files here</p>
+            <sup>Only PNG or JPG</sup>
+        </div>
+    </div>
+</section>
