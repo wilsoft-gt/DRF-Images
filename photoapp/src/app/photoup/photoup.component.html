@@ -1,11 +1,27 @@
 <section>
-    {{droped | json}}
-    <img src="{{droped}}" alt="">
-    <div class="dropArea" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event)">
+    {{dropedList}}
+    <div class="dropArea" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event); drop($event)">
         <div class="dropArea__info">
             <i class="fas fa-upload"></i>
             <p>Drag and drop your files here</p>
+            <input type="file" id="inputFile">
             <sup>Only PNG or JPG</sup>
         </div>
+    </div>
+    <table class="table">
+        <tr>
+            <th>File Name</th>
+            <th>Size</th>
+            <th>Delete</th>
+        </tr>
+        <tr *ngFor="let image of dropedList;let idx = index">
+            <td>{{image.name}}</td>
+            <td>{{(image.size / 1024) | number: '1.1-2'}}kb</td>
+            <td><button (click)="delete(idx)">delete</button></td>
+        </tr>
+    </table>
+
+    <div id="images">
+
     </div>
 </section>

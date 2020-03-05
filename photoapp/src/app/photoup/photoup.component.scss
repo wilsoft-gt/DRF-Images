@@ -18,3 +18,18 @@
         }
     }
 }
+
+.img-droped {
+    max-height: 50px;
+    max-width: 50px;
+}
+
+.table {
+    margin: 0 auto;
+    min-width: 25em;
+    border: 1px solid black;
+    border-collapse: collapse;
+    th, td {
+        border: 1px solid black;
+    }
+}
