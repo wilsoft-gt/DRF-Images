@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-photoup',
@@ -16,17 +17,29 @@ export class PhotoupComponent implements OnInit {
 
   onDragOver(event) {
     event.preventDefault()
-    console.log("File is over the div")
+    let hoverArea = document.getElementById("dropArea");
+    hoverArea.style.backgroundColor = "#bebebe"
   }
 
-  drop(event) {
+  onDragLeage() {
     event.preventDefault()
-    var fileInput = document.querySelector("inputFile") 
+    let hoverArea = document.getElementById("dropArea");
+    hoverArea.style.backgroundColor = "#f0f0f0"
+  }
+
+
+  drop(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.onDragLeage()
     this.droped = event.dataTransfer.files;
     for (let file of this.droped) {
       this.dropedList.push(file)
-      fileInput.files
     }
+  }
+
+  fileBrowserHandler(file){
+    this.dropedList.push(file)
   }
 
   onDropSuccess(event) {
@@ -34,24 +47,13 @@ export class PhotoupComponent implements OnInit {
     /* this.generateImages(event) */
   }
   
-/*   generateImages(ev) {
-    var imagediv = document.getElementById("images")
-    imagediv.innerHTML = null
-    for (let images of this.dropedList) {
-      var img = document.createElement('img');
-      img.classList.add("img-droped");
-      var reader = new FileReader();
-      reader.onload = (ev) => {
-        img.src = reader.result as string;
-        imagediv.appendChild(img);
-      }
-      reader.readAsDataURL(images)
-    }
-    
-  } */
-
   delete(idx) {
     this.dropedList.splice(idx, 1)
+  }
+
+  inputFileClicked() {
+    let inputFile = document.getElementById("inputFile") as HTMLElement;
+    inputFile.click()
   }
 
 }
