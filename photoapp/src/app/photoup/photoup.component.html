@@ -7,16 +7,13 @@
         (drop)="onDropSuccess($event); drop($event)"
         (dragleave)="onDragLeage()"
     >
-        <div class="dropArea__info">
+        <div class="dropArea__info">httpclient
             <i class="fas fa-upload"></i>
             <p>Drag and drop photos here</p>
             <span>or</span>
             <span class="dropArea__select" (click)="inputFileClicked()">Click here to select one</span>
             <input type="file" id="inputFile" hidden (change)="fileBrowserHandler($event.target.files[0])">
             <sup>Only PNG or JPG</sup>
-        </div>
-        <div id="fileOver" class="fileOver">
-            <i class="fas fa-arrow-alt-circle-down"></i>
         </div>
     </div>
     <div class="files">

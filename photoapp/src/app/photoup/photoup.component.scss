@@ -21,7 +21,6 @@
             font-size: 5em;
         }
     }
-
     &__select {
         background-color: #b3e0ff;
         padding: 0.5em;
@@ -65,18 +64,4 @@
         }
     }
 
-}
-
-.fileOver {
-    height: 100%;
-    width: 100%;
-    background-color: rgb(168, 168, 168);;
-    position: absolute;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    border-radius: 20px;
-    opacity: 90%;
-    font-size: 7em;
-    color: white;
 }
