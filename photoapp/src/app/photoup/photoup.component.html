@@ -1,5 +1,4 @@
 <section>
-    {{dropedList}}
     <div 
         id="dropArea" 
         class="dropArea" 
@@ -16,6 +15,7 @@
             <sup>Only PNG or JPG</sup>
         </div>
     </div>
+    <button (click)="pushImages()">Submit</button>
     <div class="files">
         <div *ngFor="let photo of dropedList; let idx = index" class="files__container">
             <i class="fas fa-image"></i>
@@ -25,5 +25,10 @@
             </div>
             <i class="fas fa-minus-circle" (click)="delete(idx)"></i>
         </div>
+    </div>
+    <hr>
+    <div class="photos-container">
+        <img *ngFor="let img of images" src="{{img.photo}}" (click)="deleteImage(img.id)" height="150px" style="margin:1em; cursor: pointer;">
+
     </div>
 </section>

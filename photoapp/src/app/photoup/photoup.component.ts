@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { element } from 'protractor';
+import { PhotoupService } from '../photoup.service';
+import { promise } from 'protractor';
 
 @Component({
   selector: 'app-photoup',
@@ -7,12 +8,17 @@ import { element } from 'protractor';
   styleUrls: ['./photoup.component.scss']
 })
 export class PhotoupComponent implements OnInit {
-  public dropedList: any = []
+  public dropedList: Array<File> = []
   public droped;
+  public images: Array<any> = []
 
-  constructor() { }
+  constructor(
+    private photoService: PhotoupService,
+  ) { }
 
   ngOnInit() {
+    this.getFiles()
+
   }
 
   onDragOver(event) {
@@ -27,12 +33,11 @@ export class PhotoupComponent implements OnInit {
     hoverArea.style.backgroundColor = "#f0f0f0"
   }
 
-
   drop(event) {
     event.preventDefault();
     event.stopPropagation();
     this.onDragLeage()
-    this.droped = event.dataTransfer.files;
+    this.droped = <File>event.dataTransfer.files;
     for (let file of this.droped) {
       this.dropedList.push(file)
     }
@@ -54,6 +59,33 @@ export class PhotoupComponent implements OnInit {
   inputFileClicked() {
     let inputFile = document.getElementById("inputFile") as HTMLElement;
     inputFile.click()
+  }
+
+  async getFiles(): Promise<void> {
+    try{
+      const response = await this.photoService.getImages().toPromise();
+      this.images = response;
+    }
+    catch(e) {
+
+    }
+  }
+
+  async pushImages(): Promise<void> {
+    const formData = new FormData();
+    for (let image of this.dropedList){
+      formData.append("photo", image, image.name)
+      this.photoService.submit(formData).subscribe( () => {
+        this.getFiles()
+      })
+    }
+    this.dropedList = []
+  }
+
+  async deleteImage(id): Promise<void> {
+    this.photoService.deleteImage(id).subscribe( e => {
+      this.getFiles()
+    })
   }
 
 }
